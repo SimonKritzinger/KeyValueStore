@@ -18,7 +18,7 @@ namespace myProg
 	public class DataBase
 	{
 				
-		private Dictionary<string, string> keyValueStore;
+		private IDictionary<string, string> keyValueStore;
 		
 		public DataBase()
 		{
@@ -31,10 +31,11 @@ namespace myProg
 		}
 		
 		public string get(String key){
-			if(keyValueStore[key] != null)
+			try{
 				return keyValueStore[key];
-			else
-				return "key doesn't exist";
+			}catch(Exception e){
+				return "Error: key doesn't exist";
+			}
 		}
 		
 		public bool del(String key){
@@ -45,8 +46,10 @@ namespace myProg
 			string ret = null;
 			foreach(var key in keyValueStore.Keys){
 				if(keyValueStore[key].Equals(value))
-					ret = keyValueStore[key];
+					ret = key;
 			}
+			if(ret ==null)
+				ret = "Error: couldn't find key";
 			return ret;
 		}
 	}
