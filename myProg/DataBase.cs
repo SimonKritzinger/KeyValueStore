@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
+
 
 namespace myProg
 {
@@ -15,8 +17,27 @@ namespace myProg
 	/// </summary>
 	public class DataBase
 	{
+				
+		private Dictionary<string, string> keyValueStore;
+		
 		public DataBase()
 		{
+			keyValueStore = new Dictionary<string, string>();
+		}
+		
+		public void put(String key,String value){
+			keyValueStore.Add(key,value);
+		}
+		
+		public string get(String key){
+			if(keyValueStore[key] != null)
+				return keyValueStore[key];
+			else
+				return "key doesn't exist";
+		}
+		
+		public void del(String key){
+			keyValueStore.
 		}
 	}
 }

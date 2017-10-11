@@ -14,12 +14,13 @@ namespace myProg
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
-			
-			// TODO: Implement Functionality Here
-			
-			Console.Write("Press any key to continue . . . ");
-			Console.ReadKey(true);
+			DataBase b = new DataBase();
+			while(true){
+				
+				Console.WriteLine("Enter your command");
+				
+				Console.ReadLine();
+			}
 		}
 	}
 }
