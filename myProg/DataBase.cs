@@ -26,7 +26,8 @@ namespace myProg
 		}
 		
 		public void put(String key,String value){
-			keyValueStore.Add(key,value);
+			
+			keyValueStore[key] = value;
 		}
 		
 		public string get(String key){
@@ -36,8 +37,17 @@ namespace myProg
 				return "key doesn't exist";
 		}
 		
-		public void del(String key){
-			keyValueStore.
+		public bool del(String key){
+			return keyValueStore.Remove(key);
+		}
+		
+		public string find(string value){
+			string ret = null;
+			foreach(var key in keyValueStore.Keys){
+				if(keyValueStore[key].Equals(value))
+					ret = keyValueStore[key];
+			}
+			return ret;
 		}
 	}
 }

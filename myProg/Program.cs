@@ -17,9 +17,16 @@ namespace myProg
 			DataBase b = new DataBase();
 			while(true){
 				
-				Console.WriteLine("Enter your command");
+				Console.WriteLine("Enter your command(help for help)");
 				
-				Console.ReadLine();
+				string command = Console.ReadLine();
+				
+				if(command.StartsWith("help")){
+							Console.WriteLine("put [key] [value]\nget [key]\ndel [key]\nfind [value]");
+				}
+				else if(command.StartsWith("put")){
+				}
+
 			}
 		}
 	}
