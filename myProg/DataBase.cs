@@ -8,6 +8,8 @@
  */
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 
 namespace myProg
@@ -19,6 +21,26 @@ namespace myProg
 	{
 				
 		private IDictionary<string, string> keyValueStore;
+		
+		
+		public DataBase(string path, out string erg){
+			if(!string.IsNullOrEmpty(path)){
+				try{
+					var reader = new StreamReader(path);
+					keyValueStore = new Dictionary<string, string>();
+					foreach(item p in temp){
+						put(p.id,p.value);
+					}
+					erg = "ok";
+				}catch(Exception e){
+					erg = "error";
+				}
+			}
+			else{
+				erg = "Couldn't load file: string is empty or null!";
+				this.keyValueStore = new Dictionary<string, string>();
+			}
+		}
 		
 		public DataBase()
 		{
@@ -52,5 +74,11 @@ namespace myProg
 				ret = "Error: couldn't find key";
 			return ret;
 		}
+		
+		public bool save(string path){
+			bool ret = false;
+			return ret;
+		}
+		
 	}
 }

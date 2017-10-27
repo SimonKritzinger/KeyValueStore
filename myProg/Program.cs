@@ -14,13 +14,26 @@ namespace myProg
 	{
 		public static void Main(string[] args)
 		{
-			DataBase b = new DataBase();
+			Console.WriteLine("Do you want to create a new KeyValueStore or open a old one?(create , open [path])");
+			string command = Console.ReadLine();
+			string erg ="";
+			var b = new DataBase();
+			while(!erg.Equals("ok")){
+				if(command.StartsWith("create")){
+					b = new DataBase();
+					erg = "ok";
+				}
+				else if(command.StartsWith("open") && command.Split(' ').Length == 2){
+					b = new DataBase(command.Split(' ')[1],out erg);
+					if(!erg.Equals("ok")){
+						Console.WriteLine(erg+"\nEnter new path(create [path]) or open an old one(open)");
+					}
+				}
+			}
 			while(true){
 				
 				Console.WriteLine("Enter your command(help for help)");
-				
-				string command = Console.ReadLine();
-				
+				command = Console.ReadLine();
 				//switch wurde nicht verwendet, da kein string.StartsWith(string s)
 				if(command.StartsWith("help")){
 					Console.WriteLine("put [key] [value]\nget [key]\ndel [key]\nfind [value]");
