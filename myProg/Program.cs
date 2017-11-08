@@ -14,7 +14,7 @@ namespace myProg
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("Do you want to create a new KeyValueStore or open a old one?(create , open [path])");
+			Console.Write("Do you want to create a new KeyValueStore or open a old one?(create , open [path])\n>");
 			string command = Console.ReadLine();
 			string erg ="";
 			var b = new DataBase();
@@ -29,14 +29,18 @@ namespace myProg
 						Console.WriteLine(erg+"\nEnter new path(create [path]) or open an old one(open)");
 					}
 				}
+				else{
+					Console.Write("Do you want to create a new KeyValueStore or open a old one?(create , open [path])\n>");
+					command = Console.ReadLine();
+				}
 			}
 			while(true){
 				
-				Console.WriteLine("Enter your command(help for help)");
+				Console.Write("Enter your command(help for help)\n>");
 				command = Console.ReadLine();
 				//switch wurde nicht verwendet, da kein string.StartsWith(string s)
 				if(command.StartsWith("help")){
-					Console.WriteLine("put [key] [value]\nget [key]\ndel [key]\nfind [value]");
+					Console.WriteLine("-> put [key] [value]\n-> get [key]\n-> del [key]\n-> find [value]\n-> save [path]\n   File has to be .csv\n-> open [path]\n   Loads a KeyValueStore from .csv file\n-> create\n   creates new KeyValueStore. All unsaved data will be deleted\n-> exit");
 				}
 				else if(command.StartsWith("put")){
 					string[] buffer = command.Split(' ');
@@ -77,7 +81,24 @@ namespace myProg
 						Console.WriteLine("Invalid syntax for 'find'\nuse: 'find [value]'");
 					}
 				}
-
+				else if(command.StartsWith("save")){
+					string[] buffer = command.Split(' ');
+					if(buffer.Length == 2){
+						bool retvalue = b.save(buffer[1]);
+						if(!retvalue){
+							Console.WriteLine("Couldn't save KeysValueStore");
+						}
+					}
+					else{
+						Console.WriteLine("Invalid syntax for 'save'\nuse: 'save [path]'");
+					}
+				}
+				else if(command.StartsWith("open")){
+				}
+				else if(command.StartsWith("create")){
+				}
+				else if(command.StartsWith("exit")){
+				}
 			}
 		}
 	}

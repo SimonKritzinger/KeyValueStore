@@ -35,7 +35,7 @@ namespace myProg
 			
 			            put(values[0],values[1]);
 			        }
-			        erg = "a";
+			        erg = "ok";
 			    }
 			}
 			else{
@@ -78,6 +78,17 @@ namespace myProg
 		
 		public bool save(string path){
 			bool ret = false;
+			if(!string.IsNullOrEmpty(path)){
+				if(!path.EndsWith(".csv")){
+					path += ".csv";
+				}
+				using(var writer = new StreamWriter(path)){
+					foreach(var key in keyValueStore.Keys){
+						writer.WriteLine(key + ";" +  keyValueStore[key]);
+					}
+					ret = true;
+				}
+			}
 			return ret;
 		}
 		
