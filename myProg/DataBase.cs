@@ -24,21 +24,22 @@ namespace myProg
 		
 		
 		public DataBase(string path, out string erg){
+			this.keyValueStore = new Dictionary<string, string>();
 			if(!string.IsNullOrEmpty(path)){
-				try{
-					var reader = new StreamReader(path);
-					keyValueStore = new Dictionary<string, string>();
-					foreach(item p in temp){
-						put(p.id,p.value);
-					}
-					erg = "ok";
-				}catch(Exception e){
-					erg = "error";
-				}
+				using(var reader = new StreamReader(@path))
+			    {
+			        while (!reader.EndOfStream)
+			        {
+			            var line = reader.ReadLine();
+			            var values = line.Split(';');
+			
+			            put(values[0],values[1]);
+			        }
+			        erg = "a";
+			    }
 			}
 			else{
 				erg = "Couldn't load file: string is empty or null!";
-				this.keyValueStore = new Dictionary<string, string>();
 			}
 		}
 		
