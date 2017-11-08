@@ -26,17 +26,23 @@ namespace myProg
 		public DataBase(string path, out string erg){
 			this.keyValueStore = new Dictionary<string, string>();
 			if(!string.IsNullOrEmpty(path)){
-				using(var reader = new StreamReader(@path))
-			    {
-			        while (!reader.EndOfStream)
-			        {
-			            var line = reader.ReadLine();
-			            var values = line.Split(';');
-			
-			            put(values[0],values[1]);
-			        }
-			        erg = "ok";
-			    }
+				try{
+					if(!path.EndsWith(".csv"))
+						path += ".csv";
+					using(var reader = new StreamReader(@path))
+				    {
+				        while (!reader.EndOfStream)
+				        {
+				            var line = reader.ReadLine();
+				            var values = line.Split(';');
+				
+				            put(values[0],values[1]);
+				        }
+				        erg = "ok";
+				    }
+				}catch(Exception e){
+					erg = "Error while opening file";
+				}
 			}
 			else{
 				erg = "Couldn't load file: string is empty or null!";
@@ -82,11 +88,15 @@ namespace myProg
 				if(!path.EndsWith(".csv")){
 					path += ".csv";
 				}
-				using(var writer = new StreamWriter(path)){
-					foreach(var key in keyValueStore.Keys){
-						writer.WriteLine(key + ";" +  keyValueStore[key]);
+				try{
+					using(var writer = new StreamWriter(path)){
+						foreach(var key in keyValueStore.Keys){
+							writer.WriteLine(key + ";" +  keyValueStore[key]);
+						}
+						ret = true;
 					}
-					ret = true;
+				}catch(Exception e){
+					ret = false;
 				}
 			}
 			return ret;
